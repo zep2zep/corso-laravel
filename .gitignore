@@ -22,6 +22,7 @@ public/hot
 .env.*.backup
 .env.production
 .env.local
+vercel.json
 # Homestead & Vagrant
 Homestead.yaml
 Homestead.json
@@ -44,3 +45,6 @@ docker-compose.yml
 # Specific folders you might not want
 /React
 /container
+
+.env.local
+vercel.json
