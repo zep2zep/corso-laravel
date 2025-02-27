@@ -21,7 +21,7 @@ public/hot
 .env
 .env.*.backup
 .env.production
-
+.env.local
 # Homestead & Vagrant
 Homestead.yaml
 Homestead.json
