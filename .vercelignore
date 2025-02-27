@@ -1,0 +1,7 @@
+vendor
+React
+database/database.sqlite
+public/favicon.ico
+storage
+node_modules
+container

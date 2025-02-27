@@ -1,0 +1,56 @@
+Crea migrazione per la tabella products
+
+php artisan make:migration create_products_table --create=products
+
+database\migrations\2024_10_23_072112_create_products_table.php
+
+        Schema::create('products', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->text('detail');
+            $table->timestamps();
+        });
+
+
+Esegui la migrazione di una specifica tabella:*****************[[ATTENZIONE a \ /]]
+
+php artisan migrate --path=/database/migrations/2024_10_23_072112_create_products_table.php
+
+https://youtu.be/D8BBdIpqNyw?list=PLJetLDY7yKup1wDDkQObuRIzCeXYtpNvN
+
+Creare controller
+php artisan make:controller ProductController --resource --model=Product
+
+web.php
+
+......
+Route::resource('products',ProductController::class);
+
+https://youtu.be/jevNTbh9YMw?list=PLJetLDY7yKup1wDDkQObuRIzCeXYtpNvN
+
+Creare dir e files
+
+resources\views\products\layouts.blade.php
+
+<body>
+<h1>Laravel CRUD Applivcation</h1>
+<div>
+<br>
+@yield('content')
+</div>
+</body>
+
+resources\views\products\create.blade.php
+
+@extends('products.create');
+
+@section('content');
+<h1>Create Product</h1>
+@endsection
+
+app\Http\Controllers\ProductController.php
+
+  public function create()
+    {
+       return view('products.create');
+    }

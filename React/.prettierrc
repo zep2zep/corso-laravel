@@ -1,0 +1,18 @@
+{
+    "semi": false,
+    "singleQuote": false,
+    "overrides": [
+        {
+            "files": [
+                "*.html",
+                "*.js",
+                "*.jsx"
+            ],
+            "options": {
+                "parser": "babel",
+                "semi": true,
+                "singleQuote": true
+            }
+        }
+    ]
+}

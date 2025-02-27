@@ -1,0 +1,7 @@
+corso-laravel $ vercel
+(node:13448) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+Vercel CLI 37.9.0
+🔍  Inspect: https://vercel.com/sestaperticas-projects/corso-laravel/7EcVTjTzEjtN632VYmUH8uJicB51 [3s]
+✅  Preview: https://corso-laravel-nzmrgruok-sestaperticas-projects.vercel.app [3s]
+📝  To deploy to production (corso-laravel.vercel.app), run `vercel --prod`

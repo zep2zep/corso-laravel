@@ -1,0 +1,4 @@
+TZ="Europe/Rome" LC_TIME=it_IT.UTF-8 date +"%d %B %Y %H:%M:%S %Z"
+
+[V0.0.8] 22 ottobre 2024 16:00:50 CEST ###sfondo login registrazione dashboard utente registrato
+[V0.1.0] 24 ottobre 2024 13:25:51 CEST ###CRUD PRODUCT layout smartphone
