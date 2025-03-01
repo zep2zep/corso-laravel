@@ -1,12 +1,33 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Reset Password') }}</div>
+<style>
+    html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        overflow: hidden; /* Evita lo scroll non voluto */
+    }
 
+    #background {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        object-fit: cover;
+        z-index: -1; /* Manda l'immagine dietro i contenuti */
+    }
+</style>
+
+<!-- Sfondo -->
+<img id="background" src="{{ Storage::disk('s3')->url('img/background.svg') }}" alt="SS3Laravel background">
+
+<div class="container h-100 d-flex align-items-center justify-content-center">
+         <div class="col-md-6 mt-4">
+            <div class="card border-primary bg-transparent border-2 mt-4">
+                <div class="card-header text-white border-0 text-center">
+                <div class="card-header">{{ __('Reset Password') }}</div>
                 <div class="card-body">
                     @if (session('status'))
                         <div class="alert alert-success" role="alert">
@@ -32,7 +53,7 @@
                         </div>
 
                         <div class="row mb-0">
-                            <div class="col-md-6 offset-md-4">
+                            <div class="col-md-6 offset-md-4 mt-4">
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Send Password Reset Link') }}
                                 </button>

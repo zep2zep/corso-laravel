@@ -1,77 +1,97 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
+<style>
+    html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        overflow: hidden; /* Evita lo scroll non voluto */
+    }
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
-                        @csrf
+    #background {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        object-fit: cover;
+        z-index: -1; /* Manda l'immagine dietro i contenuti */
+    }
 
-                        <div class="row mb-3">
-                            <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
+    .btn-link.text-white {
+        color: white !important;
+        text-decoration: none;
+    }
 
-                            <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+    .btn-link.text-white:hover {
+        color: red !important;
+        text-decoration: underline;
+    }
+</style>
 
-                                @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
+<!-- Sfondo -->
+<img id="background" src="{{ Storage::disk('s3')->url('img/background.svg') }}" alt="SS3Laravel background">
 
-                        <div class="row mb-3">
-                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
+<!-- Contenitore centrato -->
+<div class="container h-100 d-flex align-items-center justify-content-center">
+    <div class="col-md-6">
+        <div class="card border-primary bg-transparent border-2 mt-4">
+            <div class="card-header text-white border-0 text-center mt-4">
+            {{ __('Register-Auth') }}
+            </div>
+            <div class="card-body text-white">
 
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
+                @if (session('success'))
+                    <div class="alert alert-success text-center">
+                        {{ session('success') }}
+                    </div>
+                @endif
 
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                        <button class="btn btn-danger btn-sm mt-2" onclick="clearErrors()">Clear Errors</button>
+                    </div>
+                @endif
 
-                        <div class="row mb-3">
-                            <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
+                <form action="{{ route('registerUser') }}" method="POST">
+                    @csrf
+                    <div class="mb-3">
+                        <label class="text-white" for="name">Nome</label>
+                        <input type="text" class="form-control bg-dark text-white border-light" id="name" name="name" value="{{ old('name') }}">
+                    </div>
+                    <div class="mb-3">
+                        <label class="text-white" for="email">Email</label>
+                        <input type="email" class="form-control bg-dark text-white border-light" id="email" name="email" value="{{ old('email') }}">
+                    </div>
+                    <div class="mb-3">
+                        <label class="text-white" for="password">Password</label>
+                        <input type="password" class="form-control bg-dark text-white border-light" id="password" name="password">
+                    </div>
+                    <div class="mb-3">
+                        <label class="text-white" for="password_confirmation">Conferma Password</label>
+                        <input type="password" class="form-control bg-dark text-white border-light" id="password_confirmation" name="password_confirmation">
+                    </div>
 
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-end">{{ __('Confirm Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-                            </div>
-                        </div>
-
-                        <div class="row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
+                    <div class="d-flex justify-content-between">
+                        <button class="btn btn-primary" type="submit">Registrati</button>
+                        <a href="{{ url('/') }}" class="btn btn-secondary">Home</a>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    function clearErrors() {
+        location.reload(); // Ricarica la pagina per pulire gli errori
+    }
+</script>
+
 @endsection

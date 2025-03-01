@@ -7,7 +7,24 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ImageUploadController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Auth\ResetPasswordController;
 
+// Mostra il form per richiedere il reset della password
+Route::get('password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])
+    ->name('password.request');
+
+// Invia il link di reset
+Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])
+    ->name('password.email');
+
+// Mostra il form per inserire la nuova password
+Route::get('password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])
+    ->name('password.reset');
+
+// Salva la nuova password
+Route::post('password/reset', [ResetPasswordController::class, 'reset'])
+    ->name('password.update');
 
 Route::get('/', function () {
     return view('home', [
@@ -61,6 +78,7 @@ Route::delete('/post/{id}', function ($id) {
 
 //Route caricamento dell'immagine:
 Route::put('/upload-image', [ImageUploadController::class, 'upload'])->name('upload.image');
+
 
 //Route per la registrazione
 Route::get('/register', [UserController::class, 'showRegistrationForm'])->name('showRegistrationForm');
